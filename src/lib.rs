@@ -88,6 +88,15 @@ impl<F: FftNum> FFTConvolver<F> {
         *self = Self::default();
     }
 
+    /// Clears the current calculation state
+    /// Required for large stream shifts after play/pause
+    pub fn clear(&mut self) {
+        self.overlap.fill(F::zero());
+        self.pre_multiplied.fill(Complex::zero());
+        self.input_buffer_fill = 0;
+        self.current = 0;
+    }
+
     /// Initializes the convolver
     ///
     /// # Arguments
