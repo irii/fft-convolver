@@ -4,7 +4,7 @@ use crate::fft::Fft;
 use crate::utilities::{
     complex_multiply_accumulate, complex_size, copy_and_pad, next_power_of_2, sum,
 };
-use num::Zero;
+use num::{zero, Zero};
 use realfft::FftError;
 use rustfft::num_complex::Complex;
 use rustfft::FftNum;
@@ -93,8 +93,10 @@ impl<F: FftNum> FFTConvolver<F> {
     pub fn clear(&mut self) {
         self.overlap.fill(F::zero());
         self.pre_multiplied.fill(Complex::zero());
-        self.input_buffer_fill = 0;
         self.current = 0;
+        self.fft_buffer.fill(F::zero());
+        self.input_buffer.fill(F::zero());
+        self.input_buffer_fill = 0;
     }
 
     /// Initializes the convolver
