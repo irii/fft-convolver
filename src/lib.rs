@@ -95,6 +95,9 @@ impl<F: FftNum> FFTConvolver<F> {
         self.input_buffer_fill = 0;
 
         self.fft_buffer.fill(F::zero());
+        for i in 0..self.seg_count {
+            self.segments[i].fill(Complex::zero());
+        }
 
         self.conv.fill(Complex::zero());
         self.pre_multiplied.fill(Complex::zero());
